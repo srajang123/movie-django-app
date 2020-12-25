@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=<div >">
+    <title>Add Movie</title>
+</head>
+
+<body>
+    <div class="head">
+        <h1>Add Movie</h1>
+    </div>
+    <div class="body">
+        <form action="{% url 'movies:UpdateMovie' %}" method="POST">
+            {% csrf_token %}
+            <input type="hidden" value="{{movie.id}}" name="movie_id" />
+            <table>
+                <tr>
+                    <th>
+                        Movie Name:
+                    </th>
+                    <td>
+                        <input type="text" value="{{movie.movie_name}}" name="movie_name" />
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        Release Date:
+                    </th>
+                    <td>
+                        <input type="date" value="{{movie.movie_release_date|date:'Y-m-d'}}" name="movie_release_date" max="2020-12-31" />
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        Summary:
+                    </th>
+                    <td>
+                        <textarea name="movie_summary" draggable="false" rows="5">{{movie.movie_summary}}</textarea>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <input type="submit" value="EDIT MOVIE DETAILS" />
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </div>
+</body>
+
+</html>
