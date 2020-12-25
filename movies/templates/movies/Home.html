@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movies</title>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'movies/css/Home.css' %}">
+</head>
+
+<body>
+    <div class="head">
+        <h1>Movies App</h1>
+    </div>
+    <div class="body">
+        <h3>Click on Links To Navigate:</h3>
+        <ul type="circle">
+            <li>
+                <a href="{% url 'movies:Home' %}">Home</a>
+            </li>
+            <li>
+                <a href="{% url 'movies:View' %}">View Movies</a>
+            </li>
+            <li>
+                <a href="{% url 'movies:Add' %}">Add Movie</a>
+            </li>
+            <li>
+                <a href="{% url 'movies:Edit' %}">Edit Movie</a>
+            </li>
+        </ul>
+    </div>
+</body>
+
+</html>
