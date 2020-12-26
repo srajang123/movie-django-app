@@ -13,38 +13,8 @@
     </div>
     <div class="body">
         <form action="{% url 'movies:AddMovie' %}" method="POST">
-            {% csrf_token %}
-            <table>
-                <tr>
-                    <th>
-                        Movie Name:
-                    </th>
-                    <td>
-                        <input type="text" value="" name="movie_name" />
-                    </td>
-                </tr>
-                <tr>
-                    <th>
-                        Release Date:
-                    </th>
-                    <td>
-                        <input type="date" name="movie_release_date" max="2020-12-31" />
-                    </td>
-                </tr>
-                <tr>
-                    <th>
-                        Summary:
-                    </th>
-                    <td>
-                        <textarea name="movie_summary" draggable="false" rows="5"></textarea>
-                    </td>
-                </tr>
-                <tr>
-                    <td colspan="2">
-                        <input type="submit" value="ADD MOVIE" />
-                    </td>
-                </tr>
-            </table>
+            {% csrf_token %} {{ form }}
+            <input type="submit" value="ADD MOVIE" />
         </form>
     </div>
 </body>

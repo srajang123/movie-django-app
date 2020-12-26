@@ -2,16 +2,12 @@ from django.shortcuts import render,reverse
 from django.views import generic
 from django.http import HttpResponseRedirect
 from .models import Movie
+from .forms import AddMovieForm
 # Create your views here.
 class HomeView(generic.ListView):
     template_name='movies/Home.html'
     def get_queryset(self):
         return 
-
-class AddView(generic.ListView):
-    template_name='movies/Add.html'
-    def get_queryset(self):
-        return
 
 class MoviesView(generic.ListView):
     template_name='movies/View.html'
@@ -30,12 +26,14 @@ class EditMovieView(generic.DetailView):
     template_name='movies/EditMovie.html'
 
 def addmovieview(request):
-    movie_name=request.POST['movie_name']
-    movie_release_date=request.POST['movie_release_date']
-    movie_summary=request.POST['movie_summary']
-    m=Movie(movie_name=movie_name,movie_release_date=movie_release_date,movie_summary=movie_summary)
-    m.save()
-    return HttpResponseRedirect(reverse('movies:Home'))
+    if request.method=='POST':
+        form=AddMovieForm(request.POST)
+        if form.is_valid():
+            post=form.save()
+            return HttpResponseRedirect(reverse('movies:Home'))
+    else:
+        form=AddMovieForm()
+    return render(request,'movies/Add.html',{'form':form})
 
 def updatemovieview(request):
     movie_id=request.POST['movie_id']
