@@ -13,8 +13,11 @@
     </div>
     <div class="body">
         <form action="{% url 'movies:AddMovie' %}" method="POST">
-            {% csrf_token %} {{ form }}
+            <table>
+                {% csrf_token %} {{ form.as_table }}
+            </table>
             <input type="submit" value="ADD MOVIE" />
+
         </form>
     </div>
 </body>
