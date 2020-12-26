@@ -1,4 +1,4 @@
-from django.shortcuts import render,reverse
+from django.shortcuts import render,reverse,get_object_or_404
 from django.views import generic
 from django.http import HttpResponseRedirect
 from .models import Movie
@@ -35,14 +35,13 @@ def addmovieview(request):
         form=AddMovieForm()
     return render(request,'movies/Add.html',{'form':form})
 
-def updatemovieview(request):
-    movie_id=request.POST['movie_id']
-    movie_name=request.POST['movie_name']
-    movie_release_date=request.POST['movie_release_date']
-    movie_summary=request.POST['movie_summary']
-    m=Movie.objects.get(pk=movie_id)
-    m.movie_name=movie_name
-    m.movie_release_date=movie_release_date
-    m.movie_summary=movie_summary
-    m.save()
-    return HttpResponseRedirect(reverse('movies:Home'))
+def updatemovieview(request,pk):
+    movie=get_object_or_404(Movie,pk=pk)
+    if request.method=='POST':
+        form=AddMovieForm(request.POST,instance=movie)
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect(reverse('movies:Home'))
+    else:
+        form=AddMovieForm(instance=movie)
+    return render(request,'movies/EditMovie.html',{'form':form,'id':pk})

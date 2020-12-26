@@ -12,40 +12,11 @@
         <h1>Add Movie</h1>
     </div>
     <div class="body">
-        <form action="{% url 'movies:UpdateMovie' %}" method="POST">
-            {% csrf_token %}
-            <input type="hidden" value="{{movie.id}}" name="movie_id" />
+        <form action="{% url 'movies:UpdateMovie' id %}" method="POST">
             <table>
-                <tr>
-                    <th>
-                        Movie Name:
-                    </th>
-                    <td>
-                        <input type="text" value="{{movie.movie_name}}" name="movie_name" />
-                    </td>
-                </tr>
-                <tr>
-                    <th>
-                        Release Date:
-                    </th>
-                    <td>
-                        <input type="date" value="{{movie.movie_release_date|date:'Y-m-d'}}" name="movie_release_date" max="2020-12-31" />
-                    </td>
-                </tr>
-                <tr>
-                    <th>
-                        Summary:
-                    </th>
-                    <td>
-                        <textarea name="movie_summary" draggable="false" rows="5">{{movie.movie_summary}}</textarea>
-                    </td>
-                </tr>
-                <tr>
-                    <td colspan="2">
-                        <input type="submit" value="EDIT MOVIE DETAILS" />
-                    </td>
-                </tr>
+                {% csrf_token %}{{form.as_table}}
             </table>
+            <input type="submit" value="UPDATE MOVIE DETAILS" />
         </form>
     </div>
 </body>

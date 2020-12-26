@@ -7,6 +7,6 @@ urlpatterns = [
     path('addmovie',views.addmovieview,name='AddMovie'),
     path('view',views.MoviesView.as_view(),name='View'),
     path('edit',views.EditView.as_view(),name='Edit'),
-    path('edit/<int:pk>',views.EditMovieView.as_view(),name='EditMovie'),
-    path('update',views.updatemovieview,name='UpdateMovie')
+    path('edit/<int:pk>',views.updatemovieview,name='EditMovie'),
+    path('update/<int:pk>',views.updatemovieview,name='UpdateMovie')
 ]
