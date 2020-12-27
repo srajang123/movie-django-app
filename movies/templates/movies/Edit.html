@@ -1,47 +1,36 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Edit Movie</title>
-</head>
-
-<body>
-    <div class="movies">
-        <table>
-            <tr>
-                <th>
-                    S. No
-                </th>
-                <th>
-                    Movie Name
-                </th>
-                <th>
-                    Release Date
-                </th>
-                <th>
-                    Summary
-                </th>
-            </tr>
-            {% for movie in movies_list %}
-            <tr>
-                <td>
-                    {{forloop.counter}}
-                </td>
-                <td>
-                    <a href="{% url 'movies:EditMovie' movie.id%}">{{movie.movie_name}}</a>
-                </td>
-                <td>
-                    {{movie.movie_release_date}}
-                </td>
-                <td>
-                    {{movie.movie_summary}}
-                </td>
-            </tr>
-            {% endfor %}
-        </table>
-    </div>
-</body>
-
-</html>
+{% extends "base.html" %} {% block content %}
+<div class="movies">
+    <table>
+        <tr>
+            <th>
+                S. No
+            </th>
+            <th>
+                Movie Name
+            </th>
+            <th>
+                Release Date
+            </th>
+            <th>
+                Summary
+            </th>
+        </tr>
+        {% for movie in movies_list %}
+        <tr>
+            <td>
+                {{forloop.counter}}
+            </td>
+            <td>
+                <a href="{% url 'movies:EditMovie' movie.id%}">{{movie.movie_name}}</a>
+            </td>
+            <td>
+                {{movie.movie_release_date}}
+            </td>
+            <td>
+                {{movie.movie_summary}}
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+{% endblock %}

@@ -1,25 +1,14 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends "base.html" %} {% block content %}
+<div class="head">
+    <h1>Add Movie</h1>
+</div>
+<div class="body">
+    <form action="{% url 'movies:AddMovie' %}" method="POST">
+        <table>
+            {% csrf_token %} {{ form.as_table }}
+        </table>
+        <input type="submit" value="ADD MOVIE" />
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=<div >">
-    <title>Add Movie</title>
-</head>
-
-<body>
-    <div class="head">
-        <h1>Add Movie</h1>
-    </div>
-    <div class="body">
-        <form action="{% url 'movies:AddMovie' %}" method="POST">
-            <table>
-                {% csrf_token %} {{ form.as_table }}
-            </table>
-            <input type="submit" value="ADD MOVIE" />
-
-        </form>
-    </div>
-</body>
-
-</html>
+    </form>
+</div>
+{% endblock %}
