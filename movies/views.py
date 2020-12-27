@@ -44,4 +44,4 @@ def updatemovieview(request,pk):
             return HttpResponseRedirect(reverse('movies:Home'))
     else:
         form=AddMovieForm(instance=movie)
-    return render(request,'movies/EditMovie.html',{'form':form,'id':pk})
+    return render(request,'movies/EditMovie.html',{'form':form,'id':pk,'movie':movie.movie_name})
