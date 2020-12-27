@@ -8,6 +8,7 @@ class AddMovieForm(forms.ModelForm):
         model=Movie
         fields=['movie_name','movie_release_date','movie_summary']
         widgets={
-            'movie_release_date':DateInput(),
-            'movie_summary':forms.Textarea(attrs={'cols':80,'rows':8})
+            'movie_name':forms.TextInput(attrs={'class':'form-control  mb-1'}),
+            'movie_release_date':DateInput(attrs={'class':'form-control mb-1'}),
+            'movie_summary':forms.Textarea(attrs={'cols':80,'rows':8,'class':'form-control mb-1'})
         }
