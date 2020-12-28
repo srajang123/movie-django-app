@@ -2,6 +2,7 @@ from django.shortcuts import render,reverse,get_object_or_404
 from django.views import generic
 from django.http import HttpResponseRedirect
 from django.contrib.auth import login,logout
+from django.contrib.auth.decorators import login_required
 from .models import Movie
 from .forms import AddMovieForm,LoginForm,RegisterForm
 
@@ -10,6 +11,7 @@ HOME_PAGE='movies:Home'
 
 
 # Create your views here.
+
 class HomeView(generic.ListView):
     template_name='movies/Home.html'
     def get_queryset(self):
@@ -20,7 +22,7 @@ class MoviesView(generic.ListView):
     context_object_name='movies_list'
     def get_queryset(self):
         return Movie.objects.all()
-    
+
 class EditView(generic.ListView):
     template_name='movies/Edit.html'
     context_object_name='movies_list'
@@ -31,8 +33,9 @@ class EditMovieView(generic.DetailView):
     model=Movie
     template_name='movies/EditMovie.html'
 
+@login_required(login_url='/login')
 def addmovieview(request):
-    print(request)
+    print(request.user)
     if request.method=='POST':
         form=AddMovieForm(request.POST)
         if form.is_valid():
@@ -77,3 +80,7 @@ def registerview(request):
     else:
         form=RegisterForm()
     return render(request,'movies/Register.html',{'form':form})
+
+def logoutview(request):
+    logout(request)
+    return HttpResponseRedirect(reverse('movies:Login'))
