@@ -1,8 +1,14 @@
 from django.shortcuts import render,reverse,get_object_or_404
 from django.views import generic
 from django.http import HttpResponseRedirect
+from django.contrib.auth import login,logout
 from .models import Movie
-from .forms import AddMovieForm
+from .forms import AddMovieForm,LoginForm,RegisterForm
+
+#Constants
+HOME_PAGE='movies:Home'
+
+
 # Create your views here.
 class HomeView(generic.ListView):
     template_name='movies/Home.html'
@@ -26,11 +32,12 @@ class EditMovieView(generic.DetailView):
     template_name='movies/EditMovie.html'
 
 def addmovieview(request):
+    print(request)
     if request.method=='POST':
         form=AddMovieForm(request.POST)
         if form.is_valid():
             post=form.save()
-            return HttpResponseRedirect(reverse('movies:Home'))
+            return HttpResponseRedirect(reverse(HOME_PAGE))
     else:
         form=AddMovieForm()
     return render(request,'movies/Add.html',{'form':form})
@@ -41,7 +48,32 @@ def updatemovieview(request,pk):
         form=AddMovieForm(request.POST,instance=movie)
         if form.is_valid():
             form.save()
-            return HttpResponseRedirect(reverse('movies:Home'))
+            return HttpResponseRedirect(reverse(HOME_PAGE))
     else:
         form=AddMovieForm(instance=movie)
     return render(request,'movies/EditMovie.html',{'form':form,'id':pk,'movie':movie.movie_name})
+
+def loginview(request):
+    if request.method=='POST':
+        form=LoginForm(request.POST)
+        if form.is_valid():
+            if form.valid_login():
+                user=form.get_user()
+                login(request,user)
+                return HttpResponseRedirect(reverse(HOME_PAGE))
+    else:
+        form=LoginForm()
+    return render(request,'movies/Login.html',{'form':form})
+
+def registerview(request):
+    if request.method=='POST':
+        form=RegisterForm(request.POST)
+        if form.is_valid():
+            user=form.save()
+            print(user)
+            print(type(user))
+            login(request,user)
+            return HttpResponseRedirect(reverse(HOME_PAGE))
+    else:
+        form=RegisterForm()
+    return render(request,'movies/Register.html',{'form':form})
